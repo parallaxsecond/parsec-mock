@@ -1,0 +1,47 @@
+# Copyright 2021 Contributors to the Parsec project.
+# SPDX-License-Identifier: Apache-2.0
+spec:
+  name: list_opcodes_auth_direct_bad1
+  generator: list_opcodes_auth_direct
+  description: List opcodes using direct authentication with response content length too long
+  operation:
+    header:
+      magic_number: 0x5EC0A710
+      header_size: 0x1E
+      major_version_number: 0x01
+      minor_version_number: 0x00
+      flags: 0x0000
+      provider: 0x00
+      session_handle: 0x0000000000000000
+      content_type: 0x00
+      accept_type: 0x00
+      auth_type: 0x00
+      content_length: auto
+      auth_length: auto
+      opcode: 0x00000009
+      status: 0x0000
+    body_description: provider id 0x01
+    auth: 
+      type: direct
+      app_name: jimbob
+  result:
+    header:
+      magic_number: 0x5EC0A710
+      header_size: 0x1E
+      major_version_number: 0x01
+      minor_version_number: 0x00
+      flags: 0x0000
+      provider: 0x00
+      session_handle: 0x0000000000000000
+      content_type: 0x00
+      accept_type: 0x00
+      auth_type: 0x00
+      content_length: 500
+      auth_length: auto
+      opcode: 0x00000009
+      status: 0x0000
+    body_description: list opcodes result [1,3,2]
+    auth: 
+      type: direct
+      app_name: jimbob
+    parse_should_succeed: false

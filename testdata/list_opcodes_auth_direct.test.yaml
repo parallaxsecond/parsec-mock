@@ -1,0 +1,48 @@
+spec:
+  description: List opcodes using direct authentication
+  generator: list_opcodes_auth_direct
+  name: list_opcodes_auth_direct
+  operation:
+    auth:
+      app_name: jimbob
+      type: direct
+    body_description: provider id 0x01
+    header:
+      accept_type: 0
+      auth_length: auto
+      auth_type: 0
+      content_length: auto
+      content_type: 0
+      flags: 0
+      header_size: 30
+      magic_number: 1589683984
+      major_version_number: 1
+      minor_version_number: 0
+      opcode: 9
+      provider: 0
+      session_handle: 0
+      status: 0
+  result:
+    auth:
+      app_name: jimbob
+      type: direct
+    body_description: list opcodes result [1,3,2]
+    header:
+      accept_type: 0
+      auth_length: auto
+      auth_type: 0
+      content_length: auto
+      content_type: 0
+      flags: 0
+      header_size: 30
+      magic_number: 1589683984
+      major_version_number: 1
+      minor_version_number: 0
+      opcode: 9
+      provider: 0
+      session_handle: 0
+      status: 0
+    parse_should_succeed: true
+test_data:
+  operation: EKfAXh4AAQAAAAAAAAAAAAAAAAAAAAIAAAAGAAkAAAAAAAAAamltYm9iCAE=
+  result: EKfAXh4AAQAAAAAAAAAAAAAAAAAAAAUAAAAGAAkAAAAAAAAAamltYm9iCgMBAwI=
