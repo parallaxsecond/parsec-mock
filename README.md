@@ -134,7 +134,7 @@ spec:
     auth: 
       type: direct
       app_name: jimbob
-    parse_should_succeed: true
+    expected_parse_result: fail_auth
 
 ```
 The whole test spec is defined in the spec: object in the file.  In that spec, the fields are:
@@ -155,7 +155,7 @@ The whole test spec is defined in the spec: object in the file.  In that spec, t
 | result.header.content_length | If this field has the value ```auto``` then its value is calculated from the generated result content.  If the value is a number, then that value is used in the field instead |
 | result.header.auth_length | If this field has the value ```auto``` then its value is calculated from the generated auth content.  If the value is a number, then that value is used in the field instead. |
 | result.body_description | A free form description of the contents of the result content.  Used for test writers (and generator writers) to understand how to construct the request object.  This field is not used by the test generator. |
-| result.auth.type | This can either be ```none```, which will cause the auth section of the message to be empty (equivalent of the No Authentication type of authentication); or it can be ```direct```, which will cause the auth section of the message to contain authentication data corresponding to the format for Direct Authentication.  If ```direct``` is set, then the result.auth.app_name field must be set.  Note that this field does not cause the header auth_type field to be set. |
+| result.auth.type | This can either be ```none```, which will cause the auth section of the message to be empty (equivalent of the No Authentication type of authentication); or it can be ```direct```, which will cause the auth section of the message to contain authentication data corresponding to the format for Direct Authentication.  If ```direct``` is set, then the result.auth.app_name field must be set.  Note that this field does not cause the header auth_type field to be set.  **NOTE:**  A Parsec client would not send authentication data in a result message, but this spec format allows test authors to create the message as they wish to excersice the parsec client code. |
 | result.auth.app_name | Used to populate the auth section of the message when ```direct``` authentication is selected |
 | result.expected_parse_result | Used to indicate whether a client being tested with this data should successfully be parsed (even if it is returning a failure status code).  If the message is valid according to the parsec interface specification, this field should have the valid ```succeed```.  If the message is invalid, it should have the values of ```fail_header``` if the header is invalid; ```fail_auth``` if the authentication data is invlid, or ```fail_content``` if the content is invalid.  Further values may be added to this ennum in the future. |
 
