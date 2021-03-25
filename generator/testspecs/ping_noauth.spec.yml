@@ -20,7 +20,7 @@ spec:
       auth_length: 0x0000
       opcode: 0x00000001
       status: 0x0000
-    body_description: no paramters required
+    body_description: no parameters required
     auth: 
       type: none
   result:
