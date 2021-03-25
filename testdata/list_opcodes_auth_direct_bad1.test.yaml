@@ -1,48 +1,48 @@
 spec:
+  name: list_opcodes_auth_direct_bad1
+  generator: list_opcodes_auth_direct
   description: List opcodes using direct authentication with response content length
     too long
-  generator: list_opcodes_auth_direct
-  name: list_opcodes_auth_direct_bad1
   operation:
-    auth:
-      app_name: jimbob
-      type: direct
-    body_description: provider id 0x01
     header:
+      magic_number: 1589683984
+      header_size: 30
+      major_version_number: 1
+      minor_version_number: 0
+      flags: 0
+      provider: 0
+      session_handle: 0
+      content_type: 0
       accept_type: 0
-      auth_length: auto
       auth_type: 0
       content_length: auto
-      content_type: 0
-      flags: 0
-      header_size: 30
+      auth_length: auto
+      opcode: 9
+      status: 0
+    body_description: provider id 0x01
+    auth:
+      type: direct
+      app_name: jimbob
+  result:
+    header:
       magic_number: 1589683984
+      header_size: 30
       major_version_number: 1
       minor_version_number: 0
-      opcode: 9
+      flags: 0
       provider: 0
       session_handle: 0
-      status: 0
-  result:
-    auth:
-      app_name: jimbob
-      type: direct
-    body_description: list opcodes result [1,3,2]
-    header:
+      content_type: 0
       accept_type: 0
-      auth_length: auto
       auth_type: 0
       content_length: 500
-      content_type: 0
-      flags: 0
-      header_size: 30
-      magic_number: 1589683984
-      major_version_number: 1
-      minor_version_number: 0
+      auth_length: auto
       opcode: 9
-      provider: 0
-      session_handle: 0
       status: 0
+    body_description: list opcodes result [1,3,2]
+    auth:
+      type: direct
+      app_name: jimbob
     parse_should_succeed: false
 test_data:
   operation: EKfAXh4AAQAAAAAAAAAAAAAAAAAAAAIAAAAGAAkAAAAAAAAAamltYm9iCAE=

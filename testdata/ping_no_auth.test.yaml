@@ -1,45 +1,45 @@
 spec:
-  description: Ping message with noauth authenticator
-  generator: ping_no_auth
   name: ping_no_auth
+  generator: ping_no_auth
+  description: Ping message with noauth authenticator
   operation:
-    auth:
-      type: none
+    header:
+      magic_number: 1589683984
+      header_size: 30
+      major_version_number: 1
+      minor_version_number: 0
+      flags: 0
+      provider: 0
+      session_handle: 0
+      content_type: 0
+      accept_type: 0
+      auth_type: 0
+      content_length: auto
+      auth_length: 0
+      opcode: 1
+      status: 0
     body_description: no paramters required
-    header:
-      accept_type: 0
-      auth_length: 0
-      auth_type: 0
-      content_length: auto
-      content_type: 0
-      flags: 0
-      header_size: 30
-      magic_number: 1589683984
-      major_version_number: 1
-      minor_version_number: 0
-      opcode: 1
-      provider: 0
-      session_handle: 0
-      status: 0
-  result:
     auth:
       type: none
-    body_description: Ping response with major version 1 minor version 0
+  result:
     header:
-      accept_type: 0
-      auth_length: 0
-      auth_type: 0
-      content_length: auto
-      content_type: 0
-      flags: 0
-      header_size: 30
       magic_number: 1589683984
+      header_size: 30
       major_version_number: 1
       minor_version_number: 0
-      opcode: 1
+      flags: 0
       provider: 0
       session_handle: 0
+      content_type: 0
+      accept_type: 0
+      auth_type: 0
+      content_length: auto
+      auth_length: 0
+      opcode: 1
       status: 0
+    body_description: Ping response with major version 1 minor version 0
+    auth:
+      type: none
     parse_should_succeed: true
 test_data:
   operation: EKfAXh4AAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAA

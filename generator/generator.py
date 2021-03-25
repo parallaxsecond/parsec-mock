@@ -94,7 +94,7 @@ def generate_spec_data(output_folder,spec, generator_fn):
     out_path = os.path.join(output_folder, spec.name + ".test.yaml")
     print(f"Writing spec {spec.name} test data to {out_path}")
     with open(out_path, 'w') as f:
-        dump(out_data, f)
+        dump(out_data, f, sort_keys=False)
 
 def pack_header(header, auth_len, body_len):
     return pack('<IHBBHBQBBBIHIHH',
