@@ -3,7 +3,7 @@ spec:
   generator: list_opcodes_auth_direct
   description: List opcodes using direct authentication with response content length
     too long
-  operation:
+  request:
     header:
       magic_number: 1589683984
       header_size: 30
@@ -43,7 +43,7 @@ spec:
     auth:
       type: direct
       app_name: jimbob
-    parse_should_succeed: false
+    expected_parse_result: succeed
 test_data:
-  operation: EKfAXh4AAQAAAAAAAAAAAAAAAAAAAAIAAAAGAAkAAAAAAAAAamltYm9iCAE=
+  request: EKfAXh4AAQAAAAAAAAAAAAAAAAAAAAIAAAAGAAkAAAAAAAAAamltYm9iCAE=
   result: EKfAXh4AAQAAAAAAAAAAAAAAAAAAAPQBAAAGAAkAAAAAAAAAamltYm9iCgMBAwI=

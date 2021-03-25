@@ -4,7 +4,7 @@ spec:
   name: ping_no_auth
   generator: ping_no_auth
   description: Ping message with noauth authenticator
-  operation:
+  request:
     header:
       magic_number: 0x5EC0A710
       header_size: 0x1E
@@ -42,4 +42,4 @@ spec:
     body_description: Ping response with major version 1 minor version 0
     auth: 
       type: none
-    parse_should_succeed: true
+    expected_parse_result: succeed

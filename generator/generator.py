@@ -15,6 +15,8 @@ import base64
 
 from generator_lib import generators
 
+# Class to represent a test specification.  Used to convert
+# dictionary created by pyaml to object format, making code easier to read.
 class TestSpec(object):
 
     def __init__(self, dictionary):
@@ -32,7 +34,7 @@ class TestSpec(object):
         return True
 
 
-
+# Read test specs from a folder
 def read_specs(folder):
     specfiles = [f for f in listdir(folder) if isfile(join(folder, f))]
     specs = []
@@ -47,6 +49,7 @@ def read_specs(folder):
                 print(f"Error loading test spec from {file}")
     return specs
 
+# Generate test data for a list of specs
 def generate_data(specs, output_folder):
     for spec in specs:
         if spec.generator in generators:
@@ -55,19 +58,19 @@ def generate_data(specs, output_folder):
         else:
             print(f"No generator function found for spec {spec.name}, skipping...")
 
-
+# Generates data for a single spec and outputs it into the specified output folder
 def generate_spec_data(output_folder,spec, generator_fn):
     (op, result) = generator_fn()
 
-    op_auth = create_auth(spec.operation.auth)
-    op_content_len = spec.operation.header.content_length
+    op_auth = create_auth(spec.request.auth)
+    op_content_len = spec.request.header.content_length
     if op_content_len == 'auto':
         op_content_len = len(op)
     
-    op_auth_len = spec.operation.header.auth_length
+    op_auth_len = spec.request.header.auth_length
     if op_auth_len == 'auto':
         op_auth_len = len(op_auth)
-    op_header = pack_header(spec.operation.header, op_auth_len, op_content_len)
+    op_header = pack_header(spec.request.header, op_auth_len, op_content_len)
 
     
     result_content_len = spec.result.header.content_length
@@ -87,7 +90,7 @@ def generate_spec_data(output_folder,spec, generator_fn):
     out_data = {
         "spec": spec.basedict,
         "test_data": {
-            "operation": base64.b64encode(op_buf).decode('ascii'),
+            "request": base64.b64encode(op_buf).decode('ascii'),
             "result": base64.b64encode(result_buf).decode('ascii'),
         }
     }
@@ -96,7 +99,11 @@ def generate_spec_data(output_folder,spec, generator_fn):
     with open(out_path, 'w') as f:
         dump(out_data, f, sort_keys=False)
 
+# Take a header data structure and convert it into binary representation.
 def pack_header(header, auth_len, body_len):
+    # pack function converts arguments into binary string, based on format string.
+    # < means integers are little endian.  Rest of format string is one character per input to indicate
+    # packed field interpretation.  See struct.pack docs for details.
     return pack('<IHBBHBQBBBIHIHH',
         header.magic_number,
         header.header_size,
@@ -115,6 +122,7 @@ def pack_header(header, auth_len, body_len):
         0
         )
 
+# Creates auth body of message
 def create_auth(auth_spec):
     if auth_spec.type == 'none':
         return b''

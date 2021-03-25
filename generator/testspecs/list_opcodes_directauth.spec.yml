@@ -4,7 +4,7 @@ spec:
   name: list_opcodes_auth_direct
   generator: list_opcodes_auth_direct
   description: List opcodes using direct authentication
-  operation:
+  request:
     header:
       magic_number: 0x5EC0A710
       header_size: 0x1E
@@ -44,4 +44,4 @@ spec:
     auth: 
       type: direct
       app_name: jimbob
-    parse_should_succeed: true
+    expected_parse_result: succeed
