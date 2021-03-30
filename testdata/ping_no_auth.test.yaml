@@ -21,7 +21,7 @@ spec:
     body_description: no parameters required
     auth:
       type: none
-  result:
+  response:
     header:
       magic_number: 1589683984
       header_size: 30
@@ -40,7 +40,6 @@ spec:
     body_description: Ping response with major version 1 minor version 0
     auth:
       type: none
-    expected_parse_result: succeed
 test_data:
   request: EKfAXh4AAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAA
-  result: EKfAXh4AAQAAAAAAAAAAAAAAAAAAAAIAAAAAAAEAAAAAAAAACAE=
+  response: EKfAXh4AAQAAAAAAAAAAAAAAAAAAAAIAAAAAAAEAAAAAAAAACAE=

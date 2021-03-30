@@ -58,7 +58,7 @@ To write a new test, a developer should create a test spec file in the generator
 
 They then need to write a generator function in ```generator/generator_lib.py```.  This generator function takes no arguments, and should output a tuple of python binary strings.  
 
-The first element of the tuple should be the protocol buffer encoded value of the request message that is described in the spec.request.body_description field of the test spec.  The second element of the tuple should be the protocol buffer encoded value of the result message that is described in the spec.result.body_description field of the test spec.
+The first element of the tuple should be the protocol buffer encoded value of the request's *operation* message that is described in the spec.request.body_description field of the test spec.  The second element of the tuple should be the protocol buffer encoded *result* value of the response message that is described in the spec.result.body_description field of the test spec.
 
 An example generator for a list opcodes test is shown below:
 
@@ -134,14 +134,13 @@ spec:
     auth: 
       type: direct
       app_name: jimbob
-    expected_parse_result: fail_auth
 
 ```
 The whole test spec is defined in the spec: object in the file.  In that spec, the fields are:
 | Field | Description |
 | --- | --- |
 | name | The name of the test spec.  Used to name the output test data file |
-| generator | The lookup for the request and response generator in the generator library.  See [writing tests](#writing-tests).|
+| generator | The lookup for the operation and result generator in the generator library.  See [writing tests](#writing-tests).|
 | description | Description of test, not used in generation |
 | request | Settings for configuring the request data for the test data file |
 | request.header | Field values for the request header.  Meanings of these files and valid values can be found in the [parsec book](https://parallaxsecond.github.io/parsec-book/parsec_client/wire_protocol.html). |
@@ -150,14 +149,13 @@ The whole test spec is defined in the spec: object in the file.  In that spec, t
 | request.body_description | A free form description of the contents of the request content.  Used for test writers (and generator writers) to understand how to construct the request object.  This field is not used by the test generator. |
 | request.auth.type | This can either be ```none```, which will cause the auth section of the message to be empty (equivalent of the No Authentication type of authentication); or it can be ```direct```, which will cause the auth section of the message to contain authentication data corresponding to the format for Direct Authentication.  If ```direct``` is set, then the request.auth.app_name field must be set.  Note that this field does not cause the header auth_type field to be set. |
 | request.auth.app_name | Used to populate the auth section of the message when ```direct``` authentication is selected |
-| result | Settings for configuration the result data for the test data file |
-| result.header | Field values for the result header.  Meanings of these files and valid values can be found in the [parsec book](https://parallaxsecond.github.io/parsec-book/parsec_client/wire_protocol.html). |
-| result.header.content_length | If this field has the value ```auto``` then its value is calculated from the generated result content.  If the value is a number, then that value is used in the field instead |
-| result.header.auth_length | If this field has the value ```auto``` then its value is calculated from the generated auth content.  If the value is a number, then that value is used in the field instead. |
-| result.body_description | A free form description of the contents of the result content.  Used for test writers (and generator writers) to understand how to construct the request object.  This field is not used by the test generator. |
-| result.auth.type | This can either be ```none```, which will cause the auth section of the message to be empty (equivalent of the No Authentication type of authentication); or it can be ```direct```, which will cause the auth section of the message to contain authentication data corresponding to the format for Direct Authentication.  If ```direct``` is set, then the result.auth.app_name field must be set.  Note that this field does not cause the header auth_type field to be set.  **NOTE:**  A Parsec client would not send authentication data in a result message, but this spec format allows test authors to create the message as they wish to excersice the parsec client code. |
-| result.auth.app_name | Used to populate the auth section of the message when ```direct``` authentication is selected |
-| result.expected_parse_result | Used to indicate whether a client being tested with this data should successfully be parsed (even if it is returning a failure status code).  If the message is valid according to the parsec interface specification, this field should have the valid ```succeed```.  If the message is invalid, it should have the values of ```fail_header``` if the header is invalid; ```fail_auth``` if the authentication data is invlid, or ```fail_content``` if the content is invalid.  Further values may be added to this ennum in the future. |
+| response | Settings for configuration the response data for the test data file |
+| response.header | Field values for the response header.  Meanings of these files and valid values can be found in the [parsec book](https://parallaxsecond.github.io/parsec-book/parsec_client/wire_protocol.html). |
+| response.header.content_length | If this field has the value ```auto``` then its value is calculated from the generated response content.  If the value is a number, then that value is used in the field instead |
+| response.header.auth_length | If this field has the value ```auto``` then its value is calculated from the generated auth content.  If the value is a number, then that value is used in the field instead. |
+| response.body_description | A free form description of the contents of the response content.  Used for test writers (and generator writers) to understand how to construct the result object.  This field is not used by the test generator. |
+| response.auth.type | This can either be ```none```, which will cause the auth section of the message to be empty (equivalent of the No Authentication type of authentication); or it can be ```direct```, which will cause the auth section of the message to contain authentication data corresponding to the format for Direct Authentication.  If ```direct``` is set, then the result.auth.app_name field must be set.  Note that this field does not cause the header auth_type field to be set.  **NOTE:**  A Parsec client would not send authentication data in a result message, but this spec format allows test authors to create the message as they wish to excersice the parsec client code. |
+| response.auth.app_name | Used to populate the auth section of the message when ```direct``` authentication is selected |
 
 
 
