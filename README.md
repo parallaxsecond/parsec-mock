@@ -15,7 +15,19 @@ pip install -r requirements.txt
 ```
 # Usage
 ## Run Mock Service
-**TBD**
+
+Currently the mock service only supports running test cases from a folder in a request matching mode.  To run the service:
+
+```bash
+# To get help
+python parsec-mock.py --help
+# To define test case folder (defaults to ./testdata)
+python parsec-mock.py --test-folder FOLDER_NAME
+# To define the unix socket address to listen to.  Defaults to ./parsec.sock
+python parsec-mock.py --parsec-socket SOCKET_ADDRESS
+```
+
+In request matching mode, the mock service loads all the test cases from the folder and, if it receives a request that matches the (base 64 decoded) test_data.request field in the test case file, it will repond with the base 64 decoded data in the test_data.response field.  If more than one test case shares the same test_data.request value, then the last one to be loaded will be used.
 
 ## Generate Test Data
 To generate test data from test specs, run 
@@ -157,7 +169,15 @@ The whole test spec is defined in the spec: object in the file.  In that spec, t
 | response.auth.type | This can either be ```none```, which will cause the auth section of the message to be empty (equivalent of the No Authentication type of authentication); or it can be ```direct```, which will cause the auth section of the message to contain authentication data corresponding to the format for Direct Authentication.  If ```direct``` is set, then the result.auth.app_name field must be set.  Note that this field does not cause the header auth_type field to be set.  **NOTE:**  A Parsec client would not send authentication data in a result message, but this spec format allows test authors to create the message as they wish to excersice the parsec client code. |
 | response.auth.app_name | Used to populate the auth section of the message when ```direct``` authentication is selected |
 
+# Mock service testing
 
+There is a very simple test for the mock service in the test folder.  Run this from the current folder:
+
+```bash
+python ./test/mock_test.py
+```
+
+This expects the mock service to be listening on ./parsec.sock and to have the testdata/ping_no_auth.test.yaml test spec loaded
 
 # License
 
