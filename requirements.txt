@@ -1,6 +1,18 @@
-# Copyright 2021 Contributors to the Parsec project.
-# SPDX-License-Identifier: Apache-2.0
+attrs==20.3.0
+click==7.1.2
+flake8==3.9.0
+iniconfig==1.1.1
+mccabe==0.6.1
+packaging==20.9
+pluggy==0.13.1
 protobuf==3.15.6
+py==1.10.0
 pyaml==20.4.0
+pycodestyle==2.7.0
+pyflakes==2.3.1
+pyparsing==2.4.7
+pytest==6.2.2
 PyYAML==5.4.1
+rope==0.18.0
 six==1.15.0
+toml==0.10.2
