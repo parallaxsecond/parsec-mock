@@ -13,9 +13,13 @@ import base64
 # Add your new generator function here
 # TODO: with some import syntax or clever moduling, it might be possible not
 # to have to do anything here?
-from generators.ping_noauth import gen as ping_noauth
-from generators.list_opcodes_bad1 import gen as list_opcodes_bad1
-from generators.list_opcodes_directauth import gen as list_opcodes_directauth
+# F401 ignored for flake8 as those methods are called through eval
+from generators.ping_noauth import gen as ping_noauth  # noqa: F401
+from generators.list_opcodes_bad1 import gen as list_opcodes_bad1  # noqa: F401
+from generators.list_opcodes_directauth import (  # noqa: F401
+    gen as list_opcodes_directauth,
+)
+
 
 class TestSpec(object):
     """Class to represent a test specification.  Used to convert
@@ -32,6 +36,7 @@ class TestSpec(object):
         self.__dict__.update(objd)
         self.basedict = dictionary
 
+
 def read_specs(folder):
     """Read test specs from a folder"""
     specfiles = [f for f in listdir(folder) if isfile(join(folder, f))]
@@ -39,8 +44,8 @@ def read_specs(folder):
     for file in specfiles:
         print(f"Parsing spec file: {file}")
         # Only use the first part of the filename as spec name
-        name = file.split('.')[0]
-        with open(os.path.join(folder, file), 'r') as f:
+        name = file.split(".")[0]
+        with open(os.path.join(folder, file), "r") as f:
             spec = safe_load(f)
             testspec = TestSpec(spec["spec"])
             specs.append((name, testspec))
@@ -52,6 +57,7 @@ def generate_data(specs, output_folder):
     for (name, spec) in specs:
         generate_spec_data(output_folder, spec, name)
 
+
 def generate_spec_data(output_folder, spec, name):
     """Generates data for a single spec and outputs it into the specified output folder."""
     # The generator function has the same name as the test specification
@@ -59,20 +65,24 @@ def generate_spec_data(output_folder, spec, name):
 
     request_auth = create_auth(spec.request.auth)
     request_content_len = spec.request.header.content_length
-    if request_content_len == 'auto':
+    if request_content_len == "auto":
         request_content_len = len(operation)
 
     request_auth_len = spec.request.header.auth_length
-    if request_auth_len == 'auto':
+    if request_auth_len == "auto":
         request_auth_len = len(request_auth)
-    request_header = pack_header(spec.request.header, request_auth_len, request_content_len)
+    request_header = pack_header(
+        spec.request.header, request_auth_len, request_content_len
+    )
 
     response_content_len = spec.response.header.content_length
-    if response_content_len == 'auto':
+    if response_content_len == "auto":
         response_content_len = len(result)
 
     response_auth_len = spec.response.header.auth_length
-    response_header = pack_header(spec.response.header, response_auth_len, response_content_len)
+    response_header = pack_header(
+        spec.response.header, response_auth_len, response_content_len
+    )
 
     request_buf = request_header + operation + request_auth
     response_buf = response_header + result
@@ -81,13 +91,13 @@ def generate_spec_data(output_folder, spec, name):
     out_data = {
         "spec": spec.basedict,
         "test_data": {
-            "request": base64.b64encode(request_buf).decode('ascii'),
-            "response": base64.b64encode(response_buf).decode('ascii'),
-        }
+            "request": base64.b64encode(request_buf).decode("ascii"),
+            "response": base64.b64encode(response_buf).decode("ascii"),
+        },
     }
     out_path = os.path.join(output_folder, name + ".test.yaml")
     print(f"Writing spec {name} test data to {out_path}")
-    with open(out_path, 'w') as f:
+    with open(out_path, "w") as f:
         dump(out_data, f, sort_keys=False)
 
 
@@ -98,44 +108,48 @@ def pack_header(header, auth_len, body_len):
     # packed field interpretation.  See struct.pack docs for details.
     # This should map to the Fixed Common Header defined here:
     # https://parallaxsecond.github.io/parsec-book/parsec_client/wire_protocol.html#the-fixed-common-header
-    return pack('<IHBBHBQBBBIHIHH',
-                header.magic_number,
-                header.header_size,
-                header.major_version_number,
-                header.minor_version_number,
-                header.flags,
-                header.provider,
-                header.session_handle,
-                header.content_type,
-                header.accept_type,
-                header.auth_type,
-                body_len,
-                auth_len,
-                header.opcode,
-                header.status,
-                0
-                )
+    return pack(
+        "<IHBBHBQBBBIHIHH",
+        header.magic_number,
+        header.header_size,
+        header.major_version_number,
+        header.minor_version_number,
+        header.flags,
+        header.provider,
+        header.session_handle,
+        header.content_type,
+        header.accept_type,
+        header.auth_type,
+        body_len,
+        auth_len,
+        header.opcode,
+        header.status,
+        0,
+    )
 
 
 def create_auth(auth_spec):
     """Creates auth body of message"""
-    if auth_spec.type == 'none':
-        return b''
-    if auth_spec.type == 'direct':
-        return auth_spec.app_name.encode('utf-8')
-    return b''
+    if auth_spec.type == "none":
+        return b""
+    if auth_spec.type == "direct":
+        return auth_spec.app_name.encode("utf-8")
+    return b""
 
 
 def main():
     print("Generating test data.")
 
-    specdir = os.path.abspath(os.path.join(os.path.dirname(__file__), 'test_specs'))
+    specdir = os.path.abspath(os.path.join(os.path.dirname(__file__), "test_specs"))
     print(f"Reading test specs from {specdir}")
     specs = read_specs(specdir)
 
-    datadir = os.path.abspath(os.path.join(os.path.dirname(__file__), '../generator_output'))
+    datadir = os.path.abspath(
+        os.path.join(os.path.dirname(__file__), "../generator_output")
+    )
     print(f"Generating test data to {datadir}")
     generate_data(specs, datadir)
+
 
 if __name__ == "__main__":
     main()

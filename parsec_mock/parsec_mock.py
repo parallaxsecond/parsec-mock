@@ -13,21 +13,25 @@ from yaml import safe_load
 
 
 @click.command()
-@click.option('--test-folder', default='./generator_output', help='Load all tests from folder')
-@click.option('--parsec-socket', default='./parsec.sock', help='Path to parsec unix socket')
+@click.option(
+    "--test-folder", default="./generator_output", help="Load all tests from folder"
+)
+@click.option(
+    "--parsec-socket", default="./parsec.sock", help="Path to parsec unix socket"
+)
 def run_test(test_folder, parsec_socket):
-    print('Mock parsec service listening on unix://{}.'.format(parsec_socket))
+    print("Mock parsec service listening on unix://{}.".format(parsec_socket))
 
     test_cases = load_tests_from_folder(test_folder)
 
-    print('Serving all {} tests in folder {}'.format(len(test_cases),test_folder))
+    print("Serving all {} tests in folder {}".format(len(test_cases), test_folder))
 
     # Make sure socket doesn't already exist
     try:
         os.unlink(parsec_socket)
     except OSError:
         if os.path.exists(parsec_socket):
-            print('Error removing old parsec socket, exiting')
+            print("Error removing old parsec socket, exiting")
             return
 
     # Create a unix socket
@@ -39,16 +43,16 @@ def run_test(test_folder, parsec_socket):
     while True:
         connection, client_addr = sock.accept()
         try:
-            print('Connection received from {}'.format(client_addr))
+            print("Connection received from {}".format(client_addr))
             received_data = connection.recv(4096)
-            b64_received_data = base64.b64encode(received_data).decode('ascii')
+            b64_received_data = base64.b64encode(received_data).decode("ascii")
             if b64_received_data in test_cases:
                 (name, test_case) = test_cases[b64_received_data]
-                print('Received expected request for test case {}'.format(name))
+                print("Received expected request for test case {}".format(name))
                 bin_response = base64.b64decode(test_case.test_data.response)
                 connection.sendall(bin_response)
             else:
-                print('Received unexpected request {}'.format(b64_received_data))
+                print("Received unexpected request {}".format(b64_received_data))
         finally:
             connection.close()
 
@@ -68,6 +72,7 @@ class TestSpec(object):
         self.__dict__.update(objd)
         self.basedict = dictionary
 
+
 def load_tests_from_folder(test_folder):
     tests = {}
     """Read test specs from a folder"""
@@ -75,8 +80,8 @@ def load_tests_from_folder(test_folder):
 
     for file in specfiles:
         print(f"Parsing spec file: {file}")
-        name = file.split('.')[0]
-        with open(os.path.join(test_folder, file), 'r') as f:
+        name = file.split(".")[0]
+        with open(os.path.join(test_folder, file), "r") as f:
             spec = safe_load(f)
             testspec = TestSpec(spec)
             tests[testspec.test_data.request] = (name, testspec)

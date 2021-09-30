@@ -2,6 +2,7 @@
 # SPDX-License-Identifier: Apache-2.0
 from .protobuf import ping_pb2
 
+
 def gen():
     op = ping_pb2.Operation()
     result = ping_pb2.Result()
