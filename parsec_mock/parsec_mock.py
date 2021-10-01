@@ -43,7 +43,6 @@ def run_test(test_folder, parsec_socket):
     while True:
         connection, client_addr = sock.accept()
         try:
-            print("Connection received from {}".format(client_addr))
             received_data = connection.recv(4096)
             b64_received_data = base64.b64encode(received_data).decode("ascii")
             if b64_received_data in test_cases:
