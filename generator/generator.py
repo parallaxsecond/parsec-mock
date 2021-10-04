@@ -14,11 +14,12 @@ import base64
 # TODO: with some import syntax or clever moduling, it might be possible not
 # to have to do anything here?
 # F401 ignored for flake8 as those methods are called through eval
-from generators.ping_noauth import gen as ping_noauth  # noqa: F401
+from generators.ping import gen as ping  # noqa: F401
 from generators.list_opcodes_bad1 import gen as list_opcodes_bad1  # noqa: F401
 from generators.list_opcodes_directauth import (  # noqa: F401
     gen as list_opcodes_directauth,
 )
+from generators.list_providers import gen as list_providers  # noqa: F401
 
 
 class TestSpec(object):
@@ -42,6 +43,8 @@ def read_specs(folder):
     specfiles = [f for f in listdir(folder) if isfile(join(folder, f))]
     specs = []
     for file in specfiles:
+        if file.startswith("."):
+            continue
         print(f"Parsing spec file: {file}")
         # Only use the first part of the filename as spec name
         name = file.split(".")[0]

@@ -1,0 +1,40 @@
+# Copyright 2021 Contributors to the Parsec project.
+# SPDX-License-Identifier: Apache-2.0
+spec:
+  description: List providers message
+  request:
+    header:
+      magic_number: 0x5EC0A710
+      header_size: 0x1E
+      major_version_number: 0x01
+      minor_version_number: 0x00
+      flags: 0x0000
+      provider: 0x00
+      session_handle: 0x0000000000000000
+      content_type: 0x00
+      accept_type: 0x00
+      auth_type: 0x00
+      content_length: auto
+      auth_length: 0x0000
+      opcode: 0x00000008
+      status: 0x0000
+    body_description: no parameters required
+    auth: 
+      type: none
+  response:
+    header:
+      magic_number: 0x5EC0A710
+      header_size: 0x1E
+      major_version_number: 0x01
+      minor_version_number: 0x00
+      flags: 0x0000
+      provider: 0x00
+      session_handle: 0x0000000000000000
+      content_type: 0x00
+      accept_type: 0x00
+      auth_type: 0x00
+      content_length: auto
+      auth_length: 0x0000
+      opcode: 0x00000008
+      status: 0x0000
+    body_description: One provider info element with UUID "ee870e5a-ce4a-417f-8543-8fbd84b49cbe", "some empty provider" description, "Arm Ltd." vendor, version 9.8.7 and the id 2.
