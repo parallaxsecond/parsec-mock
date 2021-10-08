@@ -4,6 +4,7 @@ import click
 
 import socket
 import os
+import sys
 from os import listdir
 from os.path import isfile, join
 
@@ -44,7 +45,18 @@ def run_test(test_folder, parsec_socket):
         connection, client_addr = sock.accept()
         try:
             received_data = connection.recv(4096)
-            b64_received_data = base64.b64encode(received_data).decode("ascii")
+            all_received_data = received_data
+            # Keep polling the connection until there's no more to read
+            # for 0.5s.
+            connection.settimeout(0.5)
+            while True:
+                try:
+                    received_data = connection.recv(4096)
+                    all_received_data += received_data
+                except socket.timeout:
+                    print("Finished reading from socket")
+                    break
+            b64_received_data = base64.b64encode(all_received_data).decode("ascii")
             if b64_received_data in test_cases:
                 (name, test_case) = test_cases[b64_received_data]
                 print("Received expected request for test case {}".format(name))
@@ -53,6 +65,7 @@ def run_test(test_folder, parsec_socket):
             else:
                 print("Received unexpected request {}".format(b64_received_data))
         finally:
+            sys.stdout.flush()
             connection.close()
 
 
@@ -75,7 +88,8 @@ class TestSpec(object):
 def load_tests_from_folder(test_folder):
     tests = {}
     """Read test specs from a folder"""
-    specfiles = [f for f in listdir(test_folder) if isfile(join(test_folder, f))]
+    specfiles = [f for f in listdir(
+        test_folder) if isfile(join(test_folder, f))]
 
     for file in specfiles:
         print(f"Parsing spec file: {file}")
