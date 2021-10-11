@@ -88,8 +88,7 @@ class TestSpec(object):
 def load_tests_from_folder(test_folder):
     tests = {}
     """Read test specs from a folder"""
-    specfiles = [f for f in listdir(
-        test_folder) if isfile(join(test_folder, f))]
+    specfiles = [f for f in listdir(test_folder) if isfile(join(test_folder, f))]
 
     for file in specfiles:
         print(f"Parsing spec file: {file}")
