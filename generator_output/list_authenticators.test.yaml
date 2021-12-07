@@ -1,5 +1,5 @@
 spec:
-  description: Ping message with noauth authenticator
+  description: List authenticators message
   request:
     header:
       magic_number: 1589683984
@@ -14,7 +14,7 @@ spec:
       auth_type: 0
       content_length: auto
       auth_length: 0
-      opcode: 1
+      opcode: 14
       status: 0
     body_description: no parameters required
     auth:
@@ -33,11 +33,12 @@ spec:
       auth_type: 0
       content_length: auto
       auth_length: 0
-      opcode: 1
+      opcode: 14
       status: 0
-    body_description: Ping response with major version 1 minor version 0
+    body_description: One direct authenticator with description "direct auth", version_maj=12,
+      version_min=42, id=0x01
 test_data:
-  request: EKfAXh4AAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAA
-  response: EKfAXh4AAQAAAAAAAAAAAAAAAAAAAAIAAAAAAAEAAAAAAAAACAE=
-  request_hex: 10a7c05e1e00010000000000000000000000000000000000000000000100000000000000
-  response_hex: 10a7c05e1e000100000000000000000000000000000002000000000001000000000000000801
+  request: EKfAXh4AAQAAAAAAAAAAAAAAAAAAAAAAAAAAAA4AAAAAAAAA
+  response: EKfAXh4AAQAAAAAAAAAAAAAAAAAAABUAAAAAAA4AAAAAAAAAChMKC2RpcmVjdCBhdXRoEAwYKigB
+  request_hex: 10a7c05e1e00010000000000000000000000000000000000000000000e00000000000000
+  response_hex: 10a7c05e1e00010000000000000000000000000000001500000000000e000000000000000a130a0b6469726563742061757468100c182a2801

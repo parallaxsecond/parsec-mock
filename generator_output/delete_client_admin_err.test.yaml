@@ -1,0 +1,44 @@
+spec:
+  description: Delete client without admin privilege
+  request:
+    header:
+      magic_number: 1589683984
+      header_size: 30
+      major_version_number: 1
+      minor_version_number: 0
+      flags: 0
+      provider: 2
+      session_handle: 0
+      content_type: 0
+      accept_type: 0
+      auth_type: 1
+      content_length: auto
+      auth_length: auto
+      opcode: 28
+      status: 0
+    body_description: client called 'client exists'
+    auth:
+      type: direct
+      app_name: no_admin
+  response:
+    header:
+      magic_number: 1589683984
+      header_size: 30
+      major_version_number: 1
+      minor_version_number: 0
+      flags: 0
+      provider: 0
+      session_handle: 0
+      content_type: 0
+      accept_type: 0
+      auth_type: 0
+      content_length: auto
+      auth_length: 0
+      opcode: 28
+      status: 21
+    body_description: empty response with AdminOperation status code
+test_data:
+  request: EKfAXh4AAQAAAAIAAAAAAAAAAAAAAQ8AAAAIABwAAAAAAAAACg1jbGllbnQgZXhpc3Rzbm9fYWRtaW4=
+  response: EKfAXh4AAQAAAAAAAAAAAAAAAAAAAAAAAAAAABwAAAAVAAAA
+  request_hex: 10a7c05e1e00010000000200000000000000000000010f00000008001c000000000000000a0d636c69656e74206578697374736e6f5f61646d696e
+  response_hex: 10a7c05e1e00010000000000000000000000000000000000000000001c00000015000000

@@ -69,6 +69,10 @@ def run_test(test_folder, parsec_socket):
                     "Received unexpected request {}".format(b64_received_data),
                     flush=True,
                 )
+                print(
+                    "".join('{:02x}'.format(x) for x in all_received_data),
+                    flush=True,
+                )
                 print("Continue receiving", flush=True)
                 received_data = connection.recv(4096)
 

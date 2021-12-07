@@ -1,0 +1,44 @@
+spec:
+  description: List clients message with direct authenticator
+  request:
+    header:
+      magic_number: 1589683984
+      header_size: 30
+      major_version_number: 1
+      minor_version_number: 0
+      flags: 0
+      provider: 2
+      session_handle: 0
+      content_type: 0
+      accept_type: 0
+      auth_type: 1
+      content_length: 0
+      auth_length: auto
+      opcode: 27
+      status: 0
+    body_description: no parameters required
+    auth:
+      type: direct
+      app_name: admin_priv
+  response:
+    header:
+      magic_number: 1589683984
+      header_size: 30
+      major_version_number: 1
+      minor_version_number: 0
+      flags: 0
+      provider: 0
+      session_handle: 0
+      content_type: 0
+      accept_type: 0
+      auth_type: 0
+      content_length: auto
+      auth_length: 0
+      opcode: 27
+      status: 0
+    body_description: list clients response with jim and bob
+test_data:
+  request: EKfAXh4AAQAAAAIAAAAAAAAAAAAAAQAAAAAKABsAAAAAAAAAYWRtaW5fcHJpdg==
+  response: EKfAXh4AAQAAAAAAAAAAAAAAAAAAAAoAAAAAABsAAAAAAAAACgNqaW0KA2JvYg==
+  request_hex: 10a7c05e1e0001000000020000000000000000000001000000000a001b0000000000000061646d696e5f70726976
+  response_hex: 10a7c05e1e00010000000000000000000000000000000a00000000001b000000000000000a036a696d0a03626f62
