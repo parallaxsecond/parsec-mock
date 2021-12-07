@@ -21,17 +21,17 @@ from generators.list_opcodes_directauth import (  # noqa: F401
 )
 from generators.list_providers import gen as list_providers  # noqa: F401
 from generators.list_clients import gen as list_clients  # noqa: F401
-from generators.list_clients_admin_err import (
+from generators.list_clients_admin_err import (  # noqa: F401
     gen as list_clients_admin_err,
-)  # noqa: F401
+)
 from generators.delete_client import gen as delete_client  # noqa: F401
 from generators.list_authenticators import gen as list_authenticators  # noqa: F401
-from generators.delete_client_admin_err import (
+from generators.delete_client_admin_err import (  # noqa: F401
     gen as delete_client_admin_err,
-)  # noqa: F401
-from generators.delete_client_notexist import (
+)
+from generators.delete_client_notexist import (  # noqa: F401
     gen as delete_client_notexist,
-)  # noqa: F401
+)
 
 
 class TestSpec(object):
