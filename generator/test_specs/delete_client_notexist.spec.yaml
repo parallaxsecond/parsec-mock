@@ -9,7 +9,7 @@ spec:
       major_version_number: 0x01
       minor_version_number: 0x00
       flags: 0x0000
-      provider: 0x02
+      provider: 0x00 # require core provider
       session_handle: 0x0000000000000000
       content_type: 0x00
       accept_type: 0x00
