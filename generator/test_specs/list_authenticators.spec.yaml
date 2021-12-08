@@ -1,7 +1,7 @@
 # Copyright 2021 Contributors to the Parsec project.
 # SPDX-License-Identifier: Apache-2.0
 spec:
-  description: List providers message
+  description: List authenticators message
   request:
     header:
       magic_number: 0x5EC0A710
@@ -16,7 +16,7 @@ spec:
       auth_type: 0x00
       content_length: auto
       auth_length: 0x0000
-      opcode: 0x00000008
+      opcode: 0x0000000E
       status: 0x0000
     body_description: no parameters required
     auth: 
@@ -35,6 +35,6 @@ spec:
       auth_type: 0x00
       content_length: auto
       auth_length: 0x0000
-      opcode: 0x00000008
+      opcode: 0x0000000E
       status: 0x0000
-    body_description: One provider info element with UUID "ee870e5a-ce4a-417f-8543-8fbd84b49cbe", description "Some empty provider" description, vendor "Arm Ltd.", version 9.8.7 and the id 2.
+    body_description: One direct authenticator with description "direct auth", version_maj=12, version_min=42, id=0x01

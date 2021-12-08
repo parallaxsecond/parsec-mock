@@ -20,6 +20,18 @@ from generators.list_opcodes_directauth import (  # noqa: F401
     gen as list_opcodes_directauth,
 )
 from generators.list_providers import gen as list_providers  # noqa: F401
+from generators.list_clients import gen as list_clients  # noqa: F401
+from generators.list_clients_admin_err import (  # noqa: F401
+    gen as list_clients_admin_err,
+)
+from generators.delete_client import gen as delete_client  # noqa: F401
+from generators.list_authenticators import gen as list_authenticators  # noqa: F401
+from generators.delete_client_admin_err import (  # noqa: F401
+    gen as delete_client_admin_err,
+)
+from generators.delete_client_notexist import (  # noqa: F401
+    gen as delete_client_notexist,
+)
 
 
 class TestSpec(object):
@@ -96,6 +108,8 @@ def generate_spec_data(output_folder, spec, name):
         "test_data": {
             "request": base64.b64encode(request_buf).decode("ascii"),
             "response": base64.b64encode(response_buf).decode("ascii"),
+            "request_hex": "".join("{:02x}".format(x) for x in request_buf),
+            "response_hex": "".join("{:02x}".format(x) for x in response_buf),
         },
     }
     out_path = os.path.join(output_folder, name + ".test.yaml")
