@@ -7,7 +7,7 @@ spec:
       major_version_number: 1
       minor_version_number: 0
       flags: 0
-      provider: 2
+      provider: 0
       session_handle: 0
       content_type: 0
       accept_type: 0
@@ -38,7 +38,7 @@ spec:
       status: 1140
     body_description: empty response PsaErrorNotExist error code
 test_data:
-  request: EKfAXh4AAQAAAAIAAAAAAAAAAAAAAQsAAAAKABwAAAAAAAAACglub3QgZXhpc3RhZG1pbl9wcml2
+  request: EKfAXh4AAQAAAAAAAAAAAAAAAAAAAQsAAAAKABwAAAAAAAAACglub3QgZXhpc3RhZG1pbl9wcml2
   response: EKfAXh4AAQAAAAAAAAAAAAAAAAAAAAAAAAAAABwAAAB0BAAA
-  request_hex: 10a7c05e1e00010000000200000000000000000000010b0000000a001c000000000000000a096e6f7420657869737461646d696e5f70726976
+  request_hex: 10a7c05e1e00010000000000000000000000000000010b0000000a001c000000000000000a096e6f7420657869737461646d696e5f70726976
   response_hex: 10a7c05e1e00010000000000000000000000000000000000000000001c00000074040000

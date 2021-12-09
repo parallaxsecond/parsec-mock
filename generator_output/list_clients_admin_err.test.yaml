@@ -7,7 +7,7 @@ spec:
       major_version_number: 1
       minor_version_number: 0
       flags: 0
-      provider: 2
+      provider: 0
       session_handle: 0
       content_type: 0
       accept_type: 0
@@ -38,7 +38,7 @@ spec:
       status: 21
     body_description: empty response with AdminOperation status code
 test_data:
-  request: EKfAXh4AAQAAAAIAAAAAAAAAAAAAAQAAAAAIABsAAAAAAAAAbm9fYWRtaW4=
+  request: EKfAXh4AAQAAAAAAAAAAAAAAAAAAAQAAAAAIABsAAAAAAAAAbm9fYWRtaW4=
   response: EKfAXh4AAQAAAAAAAAAAAAAAAAAAAAAAAAAAABsAAAAVAAAA
-  request_hex: 10a7c05e1e00010000000200000000000000000000010000000008001b000000000000006e6f5f61646d696e
+  request_hex: 10a7c05e1e00010000000000000000000000000000010000000008001b000000000000006e6f5f61646d696e
   response_hex: 10a7c05e1e00010000000000000000000000000000000000000000001b00000015000000
